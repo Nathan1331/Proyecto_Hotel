@@ -45,11 +45,18 @@ namespace WebApi.Controllers
             return Logica_Clientes.EliminarCliente(P_Entidad, _hotel);
         }
 
+
         [HttpPost]
         [Route(nameof(Agregar))]
         public Resultado Agregar(Cliente P_Entidad)
         {
+            
             return Logica_Clientes.AgregarCliente(P_Entidad, _hotel);
+           
+        }
+        public Resultado AgregarBitacora(BitacoraHotel P_Bitacora)
+        {
+            return Logica_Bitacora.AgregarRegistroBitacora(P_Bitacora);
         }
 
     }
