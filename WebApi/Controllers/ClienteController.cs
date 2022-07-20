@@ -54,10 +54,14 @@ namespace WebApi.Controllers
             return Logica_Clientes.AgregarCliente(P_Entidad, _hotel);
            
         }
+
+        [HttpPost]
+        [Route(nameof(AgregarBitacora))]
         public Resultado AgregarBitacora(BitacoraHotel P_Bitacora)
         {
             return Logica_Bitacora.AgregarRegistroBitacora(P_Bitacora);
         }
+
 
     }
 }
