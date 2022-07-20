@@ -23,7 +23,7 @@ namespace WebApi.Controllers
             return Logica_Reservaciones.Consultar(_hotel);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route(nameof(ConsultarPorID))]
         public IEnumerable<Reservaciones> ConsultarPorID(Reservaciones P_entidad)
         {

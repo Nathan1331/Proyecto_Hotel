@@ -1,14 +1,15 @@
-﻿using Entidades;
+﻿using AccesoDatos;
+using Entidades;
 using Proyecto_Hotel;
 
 namespace LogicaNegocios
 {
     public class Logica_Clientes
     {
-        public static Resultado AgregarCliente(Cliente A_entidad)
+        public static Resultado AgregarCliente(Cliente A_entidad, Hotel_Db_Context hotel_Db)
         {
             Resultado V_resultado = new Resultado();
-            Acceso_Clientes objacceso = new Acceso_Clientes();
+            Acceso_Clientes objacceso = new Acceso_Clientes(hotel_Db);
 
             try
             {
@@ -43,10 +44,10 @@ namespace LogicaNegocios
 
 
 
-        public static Resultado ModificarCliente(Cliente A_entidad)
+        public static Resultado ModificarCliente(Cliente A_entidad, Hotel_Db_Context hotel_Db)
         {
             Resultado V_resultado = new Resultado();
-            Acceso_Clientes objacceso = new Acceso_Clientes();
+            Acceso_Clientes objacceso = new Acceso_Clientes(hotel_Db);
 
             try
             {
@@ -78,10 +79,10 @@ namespace LogicaNegocios
             return V_resultado;
         }
 
-        public static Resultado EliminarCliente(Cliente A_entidad)
+        public static Resultado EliminarCliente(Cliente A_entidad, Hotel_Db_Context hotel_Db)
         {
             Resultado V_resultado = new Resultado();
-            Acceso_Clientes objacceso = new Acceso_Clientes();
+            Acceso_Clientes objacceso = new Acceso_Clientes(hotel_Db);
 
             try
             {
@@ -117,13 +118,13 @@ namespace LogicaNegocios
         /// </summary>
         /// <param name="P_Entidad">Entidad de tipo usuarios</param>
         /// <returns>Entidad Lista de tipo usuarios</returns>
-        public static List<Cliente> Consultar(Cliente P_Entidad)
+        public static List<Cliente> Consultar(Cliente P_Entidad, Hotel_Db_Context hotel_Db)
         {
             List<Cliente> lstUsuarios = new List<Cliente>();
 
             try
             {
-                Acceso_Clientes objacceso = new Acceso_Clientes();
+                Acceso_Clientes objacceso = new Acceso_Clientes(hotel_Db);
                 lstUsuarios = objacceso.Consultar(P_Entidad);
             }
             catch (Exception ex)
@@ -138,13 +139,13 @@ namespace LogicaNegocios
         /// Metodo para listar usuarios registrados
         /// </summary>        
         /// <returns>Entidad Lista de tipo usuarios</returns>
-        public static List<Cliente> Consultar()
+        public static List<Cliente> Consultar(Hotel_Db_Context hotel_Db)
         {
             List<Cliente> lstUsuarios = new List<Cliente>();
 
             try
             {
-                Acceso_Clientes objacceso = new Acceso_Clientes();
+                Acceso_Clientes objacceso = new Acceso_Clientes(hotel_Db);
                 lstUsuarios = objacceso.Consultar();
             }
             catch (Exception ex)

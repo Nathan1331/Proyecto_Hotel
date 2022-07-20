@@ -10,10 +10,10 @@ namespace LogicaNegocios
 {
     public class Logica_Habitaciones
     {
-        public static Resultado AgregarHabitaciones(Disponibilidad_Habitacion A_entidad)
+        public static Resultado AgregarHabitaciones(Disponibilidad_Habitacion A_entidad, Hotel_Db_Context hotel_Db)
         {
             Resultado V_resultado = new Resultado();
-            Acceso_Habitaciones objacceso = new Acceso_Habitaciones();
+            Acceso_Habitaciones objacceso = new Acceso_Habitaciones(hotel_Db);
 
             try
             {
@@ -47,17 +47,17 @@ namespace LogicaNegocios
 
         }
 
-        public static Resultado ModificarHabitaciones(Disponibilidad_Habitacion A_entidad)
+        public static Resultado ModificarHabitaciones(Disponibilidad_Habitacion A_entidad, Hotel_Db_Context hotel_Db)
         {
             Resultado V_resultado = new Resultado();
-            Acceso_Habitaciones objacceso = new Acceso_Habitaciones();
+            Acceso_Habitaciones objacceso = new Acceso_Habitaciones(hotel_Db);
 
             try
             {
-                List<Disponibilidad_Habitacion> lstUsuarios = objacceso.Consultar(A_entidad);
+                Disponibilidad_Habitacion EntityfromDb = objacceso.Consultar(A_entidad);
 
                 //Valida si la consulta NO retorno resultados, procede con agregar el cliente
-                if (lstUsuarios.Count > 0)
+                if (EntityfromDb != null)
                 {
                     //Aqui ejecuta la acción de agregar usuario
                     V_resultado.OperacionSatisfactoria = objacceso.ModificarHabitacion(A_entidad);
@@ -82,17 +82,17 @@ namespace LogicaNegocios
             return V_resultado;
         }
 
-        public static Resultado EliminarHabitacion(Disponibilidad_Habitacion A_entidad)
+        public static Resultado EliminarHabitacion(Disponibilidad_Habitacion A_entidad, Hotel_Db_Context hotel_Db)
         {
             Resultado V_resultado = new Resultado();
-            Acceso_Habitaciones objacceso = new Acceso_Habitaciones();
+            Acceso_Habitaciones objacceso = new Acceso_Habitaciones(hotel_Db);
 
             try
             {
-                List<Disponibilidad_Habitacion> lstUsuarios = objacceso.Consultar(A_entidad);
+                Disponibilidad_Habitacion EntityfromDb = objacceso.Consultar(A_entidad);
 
                 //Valida si la consulta NO retorno resultados, procede con agregar el usuario
-                if (lstUsuarios.Count > 0)
+                if (EntityfromDb != null)
                 {
                     //Aqui ejecuta la acción de agregar usuario
                     V_resultado.OperacionSatisfactoria = objacceso.EliminarHabitacion(A_entidad);
@@ -121,33 +121,33 @@ namespace LogicaNegocios
         /// </summary>
         /// <param name="P_Entidad">Entidad de tipo usuarios</param>
         /// <returns>Entidad Lista de tipo usuarios</returns>
-        public static List<Disponibilidad_Habitacion> Consultar(Disponibilidad_Habitacion P_Entidad)
+        public static Disponibilidad_Habitacion Consultar(Disponibilidad_Habitacion P_Entidad, Hotel_Db_Context hotel_Db)
         {
-            List<Disponibilidad_Habitacion> lstUsuarios = new List<Disponibilidad_Habitacion>();
+            Disponibilidad_Habitacion EntityfromDb = new Disponibilidad_Habitacion();
 
             try
             {
-                Acceso_Habitaciones objacceso = new Acceso_Habitaciones();
-                lstUsuarios = objacceso.Consultar(P_Entidad);
+                Acceso_Habitaciones objacceso = new Acceso_Habitaciones(hotel_Db);
+                EntityfromDb = objacceso.Consultar(P_Entidad);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
 
-            return lstUsuarios;
+            return EntityfromDb;
         }
         /// <summary>
         /// Metodo para listar usuarios registrados
         /// </summary>        
         /// <returns>Entidad Lista de tipo usuarios</returns>
-        public static List<Disponibilidad_Habitacion> Consultar()
+        public static List<Disponibilidad_Habitacion> Consultar(Hotel_Db_Context hotel_Db)
         {
             List<Disponibilidad_Habitacion> lstUsuarios = new List<Disponibilidad_Habitacion>();
 
             try
             {
-                Acceso_Habitaciones objacceso = new Acceso_Habitaciones();
+                Acceso_Habitaciones objacceso = new Acceso_Habitaciones(hotel_Db);
                 lstUsuarios = objacceso.Consultar();
             }
             catch (Exception ex)

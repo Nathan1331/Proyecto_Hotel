@@ -82,7 +82,8 @@ namespace LogicaNegocios
 
             try
             {
-                List<Reservaciones> lstUsuarios = objacceso.Consultar(A_entidad);
+                List<Reservaciones> lstUsuarios = new List<Reservaciones>();
+                lstUsuarios.Add(objacceso.Consultar(A_entidad));
 
                 //Valida si la consulta NO retorno resultados, procede con agregar el cliente
                 if (lstUsuarios.Count > 0)
@@ -117,7 +118,8 @@ namespace LogicaNegocios
 
             try
             {
-                List<Reservaciones> lstUsuarios = objacceso.Consultar(A_entidad);
+                List<Reservaciones> lstUsuarios = new List<Reservaciones>();
+                lstUsuarios.Add(objacceso.Consultar(A_entidad));
 
                 //Valida si la consulta NO retorno resultados, procede con agregar el usuario
                 if (lstUsuarios.Count > 0)
@@ -156,7 +158,7 @@ namespace LogicaNegocios
             try
             {
                 Acceso_Reservaciones objacceso = new Acceso_Reservaciones(context);
-                lstUsuarios = objacceso.Consultar(P_Entidad);
+                lstUsuarios.Add(objacceso.Consultar(P_Entidad));
             }
             catch (Exception ex)
             {

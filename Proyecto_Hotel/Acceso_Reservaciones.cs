@@ -1,4 +1,5 @@
 ﻿using Entidades;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,7 +54,7 @@ namespace AccesoDatos
 
             try
             {
-                if (a_entidad._id == null || a_entidad._id == 0)
+                if (a_entidad == null || a_entidad._id == 0)
                 {
                     return false;
                 }
@@ -64,7 +65,12 @@ namespace AccesoDatos
                     {
                         return false;
                     }
-                    _hotel.Reservaciones.Update(a_entidad);
+                    CategoryFromDb.Id_habitacion = a_entidad.Id_habitacion;
+                    CategoryFromDb.Observaciones = a_entidad.Observaciones;
+                    CategoryFromDb.Fecha_salida = a_entidad.Fecha_salida;
+                    CategoryFromDb.Fecha_llegada = a_entidad.Fecha_llegada;
+                    CategoryFromDb.monto = a_entidad.monto;
+                    CategoryFromDb.cliente = a_entidad.cliente;
                     _hotel.SaveChanges();
                     _hotel.Dispose();
                     return true;
@@ -83,7 +89,7 @@ namespace AccesoDatos
         {
             try
             {
-                if (a_entidad._id == null || a_entidad._id == 0)
+                if (a_entidad == null || a_entidad._id == 0)
                 {
                     return false;
                 }
@@ -94,7 +100,7 @@ namespace AccesoDatos
                     {
                         return false;
                     }
-                    _hotel.Reservaciones.Remove(a_entidad);
+                    _hotel.Entry(CategoryFromDb).State = EntityState.Deleted;
                     _hotel.SaveChanges();
                     _hotel.Dispose();
                     return true;
@@ -109,16 +115,16 @@ namespace AccesoDatos
             }        
         }
 
-        public List<Reservaciones> Consultar(Reservaciones p_Entidad)
+        public Reservaciones? Consultar(Reservaciones? p_Entidad)
         {
             try
             {
-                return null;
+                return _hotel.Reservaciones.Find(p_Entidad._id);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             };
         }
     }
